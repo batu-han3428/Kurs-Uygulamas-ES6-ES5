@@ -12,10 +12,10 @@ class Course{
 class UI{
     addCourseToList(course, index){
         const list = document.getElementById('course-list');
-
+ 
         var html = `
             <tr>
-                <td>${index+1}</td>
+                <td>${index}</td>
                 <td><img src="img/${course.image}" width="50"></td>
                 <td>${course.title}</td>
                 <td>${course.instructor}</td>
@@ -77,8 +77,11 @@ class Storage{
 
     static displayCourses(){
         const courses = Storage.getCourses();
+        const list = document.getElementById('course-list');
+        list.innerHTML = '';
 
         courses.forEach((course,index) => {
+            console.log(index);
             const ui = new UI();
             ui.addCourseToList(course,index);
         });
@@ -104,6 +107,7 @@ class Storage{
             });
 
             localStorage.setItem('courses',JSON.stringify(courses));
+            Storage.displayCourses();
         }
     }//kurs silecek
 
@@ -134,12 +138,15 @@ document.getElementById('new-course').addEventListener('submit',function(e){
 
         //aşağıda ki işlemleri fonksiyonlara parçalayıp yapmamız lazım. yoksa burada ki kodlar çok şişer ve spagetti haline gelir. kodların yönetilebilir olması açısından fonksiyonlara bölmek en iyisi. aslında bir nevi solid gibi
 
-
-        //add course to list
-        ui.addCourseToList(course);
-
         //save to localStorage
         Storage.addCourse(course);
+
+        Storage.displayCourses();
+
+        // //add course to list
+        // ui.addCourseToList(course);
+
+       
 
         //clear controls
         ui.clearControls(course);
