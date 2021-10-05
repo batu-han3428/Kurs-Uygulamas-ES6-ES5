@@ -10,12 +10,12 @@ class Course{
 
 //UI Class
 class UI{
-    addCourseToList(course){
+    addCourseToList(course, index){
         const list = document.getElementById('course-list');
 
         var html = `
             <tr>
-                <td>1</td>
+                <td>${index+1}</td>
                 <td><img src="img/${course.image}" width="50"></td>
                 <td>${course.title}</td>
                 <td>${course.instructor}</td>
@@ -78,9 +78,9 @@ class Storage{
     static displayCourses(){
         const courses = Storage.getCourses();
 
-        courses.forEach(course => {
+        courses.forEach((course,index) => {
             const ui = new UI();
-            ui.addCourseToList(course);
+            ui.addCourseToList(course,index);
         });
     }//getCourses fonksiyonunun aldığı bilgileri ekrana basıcak
 
